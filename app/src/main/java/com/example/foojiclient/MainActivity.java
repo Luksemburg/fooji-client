@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
     private Word correct;
     private int intCorrect;
 
+    private static int correctCounter = 0;
+    private static int incorrectCounter = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,8 +99,12 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button1);
         if(intCorrect + 1 == 1){
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.material_deep_teal_500));
+            correctCounter++;
+            refreshCorrectCounter();
         }else{
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.design_default_color_error));
+            incorrectCounter++;
+            refreshIncorrectCounter();
         }
     }
 
@@ -105,8 +113,12 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button2);
         if(intCorrect + 1 == 2){
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.material_deep_teal_500));
+            correctCounter++;
+            refreshCorrectCounter();
         }else{
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.design_default_color_error));
+            incorrectCounter++;
+            refreshIncorrectCounter();
         }
     }
 
@@ -115,8 +127,12 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button3);
         if(intCorrect + 1 == 3){
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.material_deep_teal_500));
+            correctCounter++;
+            refreshCorrectCounter();
         }else{
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.design_default_color_error));
+            incorrectCounter++;
+            refreshIncorrectCounter();
         }
     }
 
@@ -125,8 +141,22 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button4);
         if(intCorrect + 1 == 4){
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.material_deep_teal_500));
+            correctCounter++;
+            refreshCorrectCounter();
         }else{
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.design_default_color_error));
+            incorrectCounter++;
+            refreshIncorrectCounter();
         }
+    }
+
+    private void refreshIncorrectCounter(){
+        TextView textView = findViewById(R.id.incorrectCounter);
+        textView.setText(String.valueOf(incorrectCounter));
+    }
+
+    private void refreshCorrectCounter(){
+        TextView textView = findViewById(R.id.correctCounter);
+        textView.setText(String.valueOf(correctCounter));
     }
 }
