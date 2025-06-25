@@ -1,5 +1,6 @@
 package com.example.foojiclient;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        refreshCorrectCounter();
+        refreshIncorrectCounter();
+
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                                 .append("Kanji: ").append(word.getKanji()).append("\n")
                                 .append("Hiragana: ").append(word.getHiragana()).append("\n\n");
                     }*/
-                    intCorrect = random.nextInt(lim) + 1;
+                    intCorrect = random.nextInt(lim);
                     correct = words.get(intCorrect);
                     builder.append(correct.getKanji());
                     textView.setText(builder.toString());
@@ -106,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             incorrectCounter++;
             refreshIncorrectCounter();
         }
+        enableNextButton();
     }
 
     public void onClick2(View view) {
@@ -120,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             incorrectCounter++;
             refreshIncorrectCounter();
         }
+        enableNextButton();
     }
 
     public void onClick3(View view) {
@@ -134,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             incorrectCounter++;
             refreshIncorrectCounter();
         }
+        enableNextButton();
     }
 
     public void onClick4(View view) {
@@ -148,6 +155,13 @@ public class MainActivity extends AppCompatActivity {
             incorrectCounter++;
             refreshIncorrectCounter();
         }
+        enableNextButton();
+    }
+
+    public void reset(View view){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     private void refreshIncorrectCounter(){
@@ -158,5 +172,21 @@ public class MainActivity extends AppCompatActivity {
     private void refreshCorrectCounter(){
         TextView textView = findViewById(R.id.correctCounter);
         textView.setText(String.valueOf(correctCounter));
+    }
+
+    private void enableNextButton(){
+        Button button = findViewById(R.id.buttonNext);
+        button.setEnabled(true);
+        button.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.yellow));
+
+        Button button1 = findViewById(R.id.button1);
+        //button1.setBackgroundColor(0x5555);
+        button1.setEnabled(false);
+        Button button2 = findViewById(R.id.button2);
+        button2.setEnabled(false);
+        Button button3 = findViewById(R.id.button3);
+        button3.setEnabled(false);
+        Button button4 = findViewById(R.id.button4);
+        button4.setEnabled(false);
     }
 }
