@@ -77,22 +77,43 @@ public class MainActivity extends AppCompatActivity {
                     intCorrect = random.nextInt(lim);
                     correct = words.get(intCorrect);
                     builder.append(correct.getKanji());
+                    if(!correct.getKanji().equals(correct.getHiragana())){
+                        builder.append("\n").append("[").append(correct.getHiragana())
+                                .append("]");
+                    }
                     textView.setText(builder.toString());
 
                     Button button1 = findViewById(R.id.button1);
                     button1.setText(words.get(0).getEnglish());
+                    button1.setEnabled(true);
                     Button button2 = findViewById(R.id.button2);
                     button2.setText(words.get(1).getEnglish());
+                    button2.setEnabled(true);
                     Button button3 = findViewById(R.id.button3);
                     button3.setText(words.get(2).getEnglish());
+                    button3.setEnabled(true);
                     Button button4 = findViewById(R.id.button4);
                     button4.setText(words.get(3).getEnglish());
+                    button4.setEnabled(true);
+                }else{
+                    //
+                    //
+                    //TO DO: Handle filed response
                 }
             }
 
             @Override
             public void onFailure(Call<List<Word>> call, Throwable t) {
+                Intent intent = new Intent(MainActivity.this, ErrorActivity.class);
                 // Handle error
+                if(t.getLocalizedMessage() != null) {
+                    Log.e("NETWORK ERROR", t.getLocalizedMessage());
+                    intent.putExtra("error_message", t.getLocalizedMessage());
+                }else{
+                    Log.e("NETWORK ERROR", "UNKNOWN ERROR");
+                    intent.putExtra("error_message", "Server is not responding. Please try again later.");
+                }
+                startActivity(intent);
             }
 
         });
@@ -106,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
             correctCounter++;
             refreshCorrectCounter();
         }else{
+            setGreenToCorrectButton();
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.design_default_color_error));
             incorrectCounter++;
             refreshIncorrectCounter();
@@ -121,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
             correctCounter++;
             refreshCorrectCounter();
         }else{
+            setGreenToCorrectButton();
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.design_default_color_error));
             incorrectCounter++;
             refreshIncorrectCounter();
@@ -136,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
             correctCounter++;
             refreshCorrectCounter();
         }else{
+            setGreenToCorrectButton();
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.design_default_color_error));
             incorrectCounter++;
             refreshIncorrectCounter();
@@ -151,11 +175,33 @@ public class MainActivity extends AppCompatActivity {
             correctCounter++;
             refreshCorrectCounter();
         }else{
+            setGreenToCorrectButton();
             button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.design_default_color_error));
             incorrectCounter++;
             refreshIncorrectCounter();
         }
         enableNextButton();
+    }
+
+    private void setGreenToCorrectButton() {
+        switch (intCorrect + 1){
+            case 1:
+                findViewById(R.id.button1).setBackgroundTintList(ContextCompat.getColorStateList(this,
+                        com.google.android.material.R.color.material_deep_teal_500));
+                break;
+            case 2:
+                findViewById(R.id.button2).setBackgroundTintList(ContextCompat.getColorStateList(this,
+                        com.google.android.material.R.color.material_deep_teal_500));
+                break;
+            case 3:
+                findViewById(R.id.button3).setBackgroundTintList(ContextCompat.getColorStateList(this,
+                        com.google.android.material.R.color.material_deep_teal_500));
+                break;
+            case 4:
+                findViewById(R.id.button4).setBackgroundTintList(ContextCompat.getColorStateList(this,
+                        com.google.android.material.R.color.material_deep_teal_500));
+                break;
+        }
     }
 
     public void reset(View view){

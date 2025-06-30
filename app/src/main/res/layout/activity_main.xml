@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
+    >
 
     <fragment
         android:id="@+id/nav_host_fragment_activity_main"
@@ -39,6 +39,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/button"
         android:onClick="onClick1"
+        android:enabled="false"
         app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -50,6 +51,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/button"
         android:onClick="onClick2"
+        android:enabled="false"
         app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
         app:layout_constraintTop_toBottomOf="@+id/button1" />
 
@@ -62,6 +64,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/button"
         android:onClick="onClick3"
+        android:enabled="false"
         app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
@@ -74,6 +77,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/button"
         android:onClick="onClick4"
+        android:enabled="false"
         app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
 
@@ -82,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/correct"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#33ff00"
@@ -96,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="0"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#33ff00"
@@ -110,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/incorrect"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ff3300"
@@ -124,7 +128,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="0"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ff3300"
