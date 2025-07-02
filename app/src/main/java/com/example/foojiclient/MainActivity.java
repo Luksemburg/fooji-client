@@ -3,18 +3,16 @@ package com.example.foojiclient;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.example.foojiclient.databinding.ActivityMainBinding;
 
@@ -48,32 +46,28 @@ public class MainActivity extends AppCompatActivity {
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        /*AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);*/
         //NavigationUI.setupWithNavController(binding.navView, navController);
 
-        int lim = 4;
+        int lim = 5;
         Random random = new Random();
 
         Call<List<Word>> call = ApiClient.getWordApiService().getRandomWords(lim);
         call.enqueue(new Callback<List<Word>>() {
             @Override
-            public void onResponse(Call<List<Word>> call, Response<List<Word>> response) {
+            public void onResponse(@NonNull Call<List<Word>> call, @NonNull Response<List<Word>> response) {
                 if (response.isSuccessful()) {
                     List<Word> words = response.body();
                     // Do something with words
                     TextView textView = findViewById(R.id.textView);
                     StringBuilder builder = new StringBuilder();
-                    builder.append("Select the correct translation of the word:\n");
+                    builder.append("Select correct translation:\n");
                     assert words != null;
-                    /*for (Word word : words) {
-                        builder.append("English: ").append(word.getEnglish()).append("\n")
-                                .append("Kanji: ").append(word.getKanji()).append("\n")
-                                .append("Hiragana: ").append(word.getHiragana()).append("\n\n");
-                    }*/
+
                     intCorrect = random.nextInt(lim);
                     correct = words.get(intCorrect);
                     builder.append(correct.getKanji());
@@ -95,10 +89,14 @@ public class MainActivity extends AppCompatActivity {
                     Button button4 = findViewById(R.id.button4);
                     button4.setText(words.get(3).getEnglish());
                     button4.setEnabled(true);
+                    Button button5 = findViewById(R.id.button5);
+                    button5.setText(words.get(4).getEnglish());
+                    button5.setEnabled(true);
                 }else{
-                    //
-                    //
-                    //TO DO: Handle filed response
+                    Intent intent = new Intent(MainActivity.this, ErrorActivity.class);
+                    Log.e("NETWORK RESPONSE FAILED", response.code() + response.message());
+                    intent.putExtra("error_message", response.code() + response.message());
+                    startActivity(intent);
                 }
             }
 
@@ -118,6 +116,35 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.navigation_profile) {
+            Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.navigation_statistic) {
+            Toast.makeText(this, "Statistics clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if (id == R.id.navigation_settings) {
+            Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if (id == R.id.navigation_about) {
+            Toast.makeText(this, "About clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if (id == R.id.navigation_exit) {
+            Toast.makeText(this, "Exit clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public void onClick1(View view) {
         Log.d("CLICK", "=========== onClick1: " + correct.getId());
@@ -183,6 +210,22 @@ public class MainActivity extends AppCompatActivity {
         enableNextButton();
     }
 
+    public void onClick5(View view) {
+        Log.d("CLICK", "=========== onClick5: " + correct.getId());
+        Button button = findViewById(R.id.button5);
+        if(intCorrect + 1 == 5){
+            button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.material_deep_teal_500));
+            correctCounter++;
+            refreshCorrectCounter();
+        }else{
+            setGreenToCorrectButton();
+            button.setBackgroundTintList(ContextCompat.getColorStateList(this, com.google.android.material.R.color.design_default_color_error));
+            incorrectCounter++;
+            refreshIncorrectCounter();
+        }
+        enableNextButton();
+    }
+
     private void setGreenToCorrectButton() {
         switch (intCorrect + 1){
             case 1:
@@ -199,6 +242,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 4:
                 findViewById(R.id.button4).setBackgroundTintList(ContextCompat.getColorStateList(this,
+                        com.google.android.material.R.color.material_deep_teal_500));
+                break;
+            case 5:
+                findViewById(R.id.button5).setBackgroundTintList(ContextCompat.getColorStateList(this,
                         com.google.android.material.R.color.material_deep_teal_500));
                 break;
         }
@@ -234,5 +281,7 @@ public class MainActivity extends AppCompatActivity {
         button3.setEnabled(false);
         Button button4 = findViewById(R.id.button4);
         button4.setEnabled(false);
+        Button button5 = findViewById(R.id.button5);
+        button5.setEnabled(false);
     }
 }
