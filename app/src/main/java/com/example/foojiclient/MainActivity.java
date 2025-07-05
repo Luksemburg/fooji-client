@@ -134,9 +134,15 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }else if (id == R.id.navigation_settings) {
             Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            finish();
+            startActivity(intent);
             return true;
         }else if (id == R.id.navigation_about) {
             Toast.makeText(this, "About clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            finish();
+            startActivity(intent);
             return true;
         }else if (id == R.id.navigation_exit) {
             Toast.makeText(this, "Exit clicked", Toast.LENGTH_SHORT).show();
