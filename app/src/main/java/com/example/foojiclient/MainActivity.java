@@ -1,7 +1,9 @@
 package com.example.foojiclient;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +27,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
     private Word correct;
     private int intCorrect;
 
@@ -38,29 +39,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String modeCurrent = prefs.getString("mode", "mixed");
+        String vocabularyCurrent = prefs.getString("vocabulary", "false,false,false,false,true");
+
         refreshCorrectCounter();
         refreshIncorrectCounter();
-
-        //BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        /*AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);*/
-        //NavigationUI.setupWithNavController(binding.navView, navController);
 
         int lim = 5;
         Random random = new Random();
 
-        Call<List<Word>> call = ApiClient.getWordApiService().getRandomWords(lim);
+        Call<List<Word>> call = ApiClient.getWordApiService().getRandomWords(lim, modeCurrent, vocabularyCurrent);
         call.enqueue(new Callback<List<Word>>() {
             @Override
             public void onResponse(@NonNull Call<List<Word>> call, @NonNull Response<List<Word>> response) {
                 if (response.isSuccessful()) {
                     List<Word> words = response.body();
-                    // Do something with words
                     TextView textView = findViewById(R.id.textView);
                     StringBuilder builder = new StringBuilder();
                     builder.append("Select correct translation:\n");
@@ -69,33 +63,68 @@ public class MainActivity extends AppCompatActivity {
                     intCorrect = random.nextInt(lim);
                     correct = words.get(intCorrect);
                     builder.append(correct.getKanji());
-                    if(!correct.getKanji().equals(correct.getHiragana())){
-                        builder.append("\n").append("[").append(correct.getHiragana())
-                                .append("]");
-                    }
-                    textView.setText(builder.toString());
 
-                    Button button1 = findViewById(R.id.button1);
-                    button1.setText(words.get(0).getEnglish());
-                    button1.setEnabled(true);
-                    Button button2 = findViewById(R.id.button2);
-                    button2.setText(words.get(1).getEnglish());
-                    button2.setEnabled(true);
-                    Button button3 = findViewById(R.id.button3);
-                    button3.setText(words.get(2).getEnglish());
-                    button3.setEnabled(true);
-                    Button button4 = findViewById(R.id.button4);
-                    button4.setText(words.get(3).getEnglish());
-                    button4.setEnabled(true);
-                    Button button5 = findViewById(R.id.button5);
-                    button5.setText(words.get(4).getEnglish());
-                    button5.setEnabled(true);
+                    if(modeCurrent.equals("translate")){
+                        questionTranslateMode(builder, textView, words);
+                    }else if(modeCurrent.equals("hiragana")){
+                        textView.setText(builder.toString());
+                        questionHiraganaMode(words);
+                    }else{
+                        if(random.nextBoolean()){
+                            questionTranslateMode(builder, textView, words);
+                        }else{
+                            textView.setText(builder.toString());
+                            questionHiraganaMode(words);
+                        }
+                    }
                 }else{
                     Intent intent = new Intent(MainActivity.this, ErrorActivity.class);
                     Log.e("NETWORK RESPONSE FAILED", response.code() + response.message());
                     intent.putExtra("error_message", response.code() + response.message());
                     startActivity(intent);
                 }
+            }
+
+            private void questionTranslateMode(StringBuilder builder, TextView textView, List<Word> words) {
+                if(!correct.getKanji().equals(correct.getHiragana())){
+                    builder.append("\n").append("[").append(correct.getHiragana())
+                            .append("]");
+                }
+                textView.setText(builder.toString());
+
+                Button button1 = findViewById(R.id.button1);
+                button1.setText(words.get(0).getEnglish());
+                button1.setEnabled(true);
+                Button button2 = findViewById(R.id.button2);
+                button2.setText(words.get(1).getEnglish());
+                button2.setEnabled(true);
+                Button button3 = findViewById(R.id.button3);
+                button3.setText(words.get(2).getEnglish());
+                button3.setEnabled(true);
+                Button button4 = findViewById(R.id.button4);
+                button4.setText(words.get(3).getEnglish());
+                button4.setEnabled(true);
+                Button button5 = findViewById(R.id.button5);
+                button5.setText(words.get(4).getEnglish());
+                button5.setEnabled(true);
+            }
+
+            private void questionHiraganaMode(List<Word> words) {
+                Button button1 = findViewById(R.id.button1);
+                button1.setText(words.get(0).getHiragana());
+                button1.setEnabled(true);
+                Button button2 = findViewById(R.id.button2);
+                button2.setText(words.get(1).getHiragana());
+                button2.setEnabled(true);
+                Button button3 = findViewById(R.id.button3);
+                button3.setText(words.get(2).getHiragana());
+                button3.setEnabled(true);
+                Button button4 = findViewById(R.id.button4);
+                button4.setText(words.get(3).getHiragana());
+                button4.setEnabled(true);
+                Button button5 = findViewById(R.id.button5);
+                button5.setText(words.get(4).getHiragana());
+                button5.setEnabled(true);
             }
 
             @Override
@@ -114,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){

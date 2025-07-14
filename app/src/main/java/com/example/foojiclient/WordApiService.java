@@ -8,5 +8,6 @@ import java.util.List;
 public interface WordApiService {
 
     @GET("words/random")
-    Call<List<Word>> getRandomWords(@Query("limit") int limit);
+    Call<List<Word>> getRandomWords(@Query("limit") int limit, @Query("mode") String mode,
+                                    @Query("vocabulary") String vocabulary);
 }

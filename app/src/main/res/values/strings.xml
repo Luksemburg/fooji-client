@@ -14,7 +14,7 @@
     <string name="sign">by\nSerhii Huliaiev</string>
     <string name="mode">Mode:</string>
     <string name="translation">Translation</string>
-    <string name="hiragana">Hiragana</string>
+    <string name="hiragana">Kana</string>
     <string name="mixed">Mixed</string>
     <string name="vocabulary">Vocabulary:</string>
     <string name="n5">N5</string>
@@ -22,4 +22,5 @@
     <string name="n3">N3</string>
     <string name="n2">N2</string>
     <string name="n1">N1</string>
+    <string name="ok">OK</string>
 </resources>
