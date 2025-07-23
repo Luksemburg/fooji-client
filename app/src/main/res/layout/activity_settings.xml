@@ -150,7 +150,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         />
 
-    <Button
+    <!-- <Button
         android:id="@+id/button_ok"
         android:layout_width="0dp"
         android:layout_height="73dp"
@@ -164,5 +164,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+        -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

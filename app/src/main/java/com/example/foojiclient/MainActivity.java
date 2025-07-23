@@ -161,15 +161,15 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Statistics clicked", Toast.LENGTH_SHORT).show();
             return true;
         }else if (id == R.id.navigation_settings) {
-            Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-            finish();
+            //finish();
             startActivity(intent);
             return true;
         }else if (id == R.id.navigation_about) {
-            Toast.makeText(this, "About clicked", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "About clicked", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-            finish();
+            //finish();
             startActivity(intent);
             return true;
         }else if (id == R.id.navigation_exit) {
