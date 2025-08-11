@@ -21,4 +21,8 @@ public class LoginActivity extends AppCompatActivity {
     public void onLogin(View view){
 
     }
+
+    public void onGoogleLogin(View view){
+
+    }
 }
