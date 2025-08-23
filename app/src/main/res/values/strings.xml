@@ -31,4 +31,15 @@
     <string name="welcome_to_foojiclient">Welcome to FooJiClient!</string>
     <string name="registration">Registration</string>
     <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="enter_email">Email</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="phone_number">Phone number</string>
+    <string name="location">Location</string>
+    <string name="invite_code">Invite code</string>
+    <string name="gender">Gender</string>
+    <string name="register">Register</string>
+    <string-array name="spinner_items">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>
