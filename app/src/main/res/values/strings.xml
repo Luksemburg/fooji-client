@@ -39,6 +39,7 @@
     <string name="gender">Gender</string>
     <string name="register">Register</string>
     <string-array name="spinner_items">
+        <item>Select…</item>
         <item>Male</item>
         <item>Female</item>
     </string-array>
