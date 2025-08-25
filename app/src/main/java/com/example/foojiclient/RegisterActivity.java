@@ -1,6 +1,8 @@
 package com.example.foojiclient;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,7 +10,21 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegisterActivity extends AppCompatActivity {
+
+    EditText username = findViewById(R.id.textViewUsername);
+    EditText email = findViewById(R.id.textViewEmail);
+    EditText phone = findViewById(R.id.editTextTextPhone);
+    EditText inviteCode = findViewById(R.id.textInviteCode);
+    EditText password = findViewById(R.id.editTextTextPassword);
+    EditText confirmPassword = findViewById(R.id.editTextTextConfirmPassword);
+    EditText location = findViewById(R.id.textViewLocation);
+    Spinner spinner = findViewById(R.id.spinnerGender);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean validateForm() {
         boolean valid = true;
-
-        EditText username = findViewById(R.id.textViewUsername);
-        EditText email = findViewById(R.id.textViewEmail);
-        EditText phone = findViewById(R.id.editTextTextPhone);
-        EditText inviteCode = findViewById(R.id.textInviteCode);
-        EditText password = findViewById(R.id.editTextTextPassword);
-        EditText confirmPassword = findViewById(R.id.editTextTextConfirmPassword);
 
         if (username.getText().toString().trim().isEmpty()) {
             username.setError("Required");
@@ -71,6 +80,42 @@ public class RegisterActivity extends AppCompatActivity {
     public void onRegister(){
         if (validateForm()) {
             // Submit form
+            UserDTO newUser = new UserDTO();
+            newUser.setUsername(String.valueOf(username.getText()));
+            newUser.setEmail(String.valueOf(email.getText()));
+            newUser.setPassword(String.valueOf(password.getText()));
+            newUser.setPhone(Long.parseLong(String.valueOf(phone.getText())));
+            newUser.setGender(String.valueOf(spinner.getSelectedItem()));
+            newUser.setLocation(String.valueOf(location.getText()));
+            newUser.setInviteCode(Long.parseLong(String.valueOf(inviteCode.getText())));
+
+            ApiClient.getWordApiService().registerUser(newUser).enqueue(new Callback<UserDTO>() {
+                @Override
+                public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+                    if (response.isSuccessful()) {
+                        // handle success
+                        UserDTO createdUser = response.body();
+                        //TODO: save user for view in profile info
+                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserDTO> call, Throwable t) {
+                    // Handle error
+                    // TODO add more logical handling
+                    Intent intent = new Intent(RegisterActivity.this, ErrorActivity.class);
+                    if(t.getLocalizedMessage() != null) {
+                        Log.e("NETWORK ERROR", t.getLocalizedMessage());
+                        intent.putExtra("error_message", t.getLocalizedMessage());
+                    }else{
+                        Log.e("NETWORK ERROR", "UNKNOWN ERROR");
+                        intent.putExtra("error_message", "Server is not responding. Please try again later.");
+                    }
+                    startActivity(intent);
+                }
+            });
         }
     }
 
