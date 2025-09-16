@@ -3,6 +3,7 @@ package com.example.foojiclient;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,19 +17,28 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText username = findViewById(R.id.textViewUsername);
-    EditText email = findViewById(R.id.textViewEmail);
-    EditText phone = findViewById(R.id.editTextTextPhone);
-    EditText inviteCode = findViewById(R.id.textInviteCode);
-    EditText password = findViewById(R.id.editTextTextPassword);
-    EditText confirmPassword = findViewById(R.id.editTextTextConfirmPassword);
-    EditText location = findViewById(R.id.textViewLocation);
-    Spinner spinner = findViewById(R.id.spinnerGender);
+    EditText username;
+    EditText email;
+    EditText phone;
+    EditText inviteCode;
+    EditText password;
+    EditText confirmPassword;
+    EditText location;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        username = findViewById(R.id.textViewUsername);
+        email = findViewById(R.id.textViewEmail);
+        phone = findViewById(R.id.editTextTextPhone);
+        inviteCode = findViewById(R.id.textInviteCode);
+        password = findViewById(R.id.editTextTextPassword);
+        confirmPassword = findViewById(R.id.editTextTextConfirmPassword);
+        location = findViewById(R.id.textViewLocation);
+        spinner = findViewById(R.id.spinnerGender);
 
         Spinner spinner = findViewById(R.id.spinnerGender);
 
@@ -77,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
         return valid;
     }
 
-    public void onRegister(){
+    public void onRegister(View view){
         if (validateForm()) {
             // Submit form
             UserDTO newUser = new UserDTO();
@@ -95,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         // handle success
                         UserDTO createdUser = response.body();
+                        Log.i("REG", "onResponse: " + response);
                         //TODO: save user for view in profile info
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
