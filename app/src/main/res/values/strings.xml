@@ -38,6 +38,7 @@
     <string name="invite_code">Invite code</string>
     <string name="gender">Gender</string>
     <string name="register">Register</string>
+    <string name="run_without_account">Run without account</string>
     <string-array name="spinner_items">
         <item>Select…</item>
         <item>Male</item>

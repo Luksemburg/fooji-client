@@ -1,5 +1,7 @@
 package com.example.foojiclient;
 
+import androidx.annotation.NonNull;
+
 import java.time.LocalDateTime;
 
 public class UserDTO {
@@ -78,4 +80,17 @@ public class UserDTO {
         this.username = username;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone=" + phone +
+                ", gender='" + gender + '\'' +
+                ", location='" + location + '\'' +
+                ", inviteCode=" + inviteCode +
+                '}';
+    }
 }

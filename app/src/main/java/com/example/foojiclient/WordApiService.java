@@ -13,7 +13,7 @@ public interface WordApiService {
     Call<List<Word>> getRandomWords(@Query("limit") int limit, @Query("mode") String mode,
                                     @Query("vocabulary") String vocabulary);
     @POST("login/login")
-    Call<List<Word>> login(@Query("login") String login, @Query("password") String password);
+    Call<UserDTO> login(@Body LoginRequest loginRequest);
 
     @POST("login/register")
     Call<UserDTO> registerUser(@Body UserDTO user);
