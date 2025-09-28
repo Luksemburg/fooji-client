@@ -42,8 +42,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     // handle success
                     UserDTO receivedUser = response.body();
+                    String token = response.headers().get("Authorization");
                     if(receivedUser != null) {
                         Log.i("LOGIN", "onResponse: " + receivedUser);
+                        Log.i("LOGIN", "Token: " + token);
                     }
                     //TODO: save user for view in profile info
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
