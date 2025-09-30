@@ -1,6 +1,7 @@
 package com.example.foojiclient;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,7 +48,19 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i("LOGIN", "onResponse: " + receivedUser);
                         Log.i("LOGIN", "Token: " + token);
                     }
-                    //TODO: save user for view in profile info
+
+                    SharedPreferences preferences = getSharedPreferences("FooJiPrefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("token", token);
+
+                    assert receivedUser != null;
+                    editor.putString("username", receivedUser.getUsername());
+                    editor.putString("email", receivedUser.getEmail());
+                    editor.putString("phone", String.valueOf(receivedUser.getPhone()));
+                    editor.putString("location", receivedUser.getLocation());
+                    editor.putString("gender", receivedUser.getGender());
+                    editor.apply();
+
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }

@@ -1,6 +1,7 @@
 package com.example.foojiclient;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -105,8 +106,21 @@ public class RegisterActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         // handle success
                         UserDTO createdUser = response.body();
+                        String token = response.headers().get("Authorization");
                         Log.i("REG", "onResponse: " + response);
-                        //TODO: save user for view in profile info
+
+                        SharedPreferences preferences = getSharedPreferences("FooJiPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("token", token);
+
+                        assert createdUser != null;
+                        editor.putString("username", createdUser.getUsername());
+                        editor.putString("email", createdUser.getEmail());
+                        editor.putString("phone", String.valueOf(createdUser.getPhone()));
+                        editor.putString("location", createdUser.getLocation());
+                        editor.putString("gender", createdUser.getGender());
+                        editor.apply();
+
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
                     }

@@ -39,6 +39,12 @@
     <string name="gender">Gender</string>
     <string name="register">Register</string>
     <string name="run_without_account">Run without account</string>
+    <string name="change_password">Change password</string>
+    <string name="enter_your_old_password">Enter your old password</string>
+    <string name="enter_a_new_password">Enter a new password</string>
+    <string name="confirm_a_new_password">Confirm a new password</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
     <string-array name="spinner_items">
         <item>Select…</item>
         <item>Male</item>
