@@ -92,15 +92,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="-50dp"
+        android:layout_marginStart="100dp"
         android:text="@string/correct"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#33ff00"
         android:textSize="20sp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+        <!-- app:layout_constraintEnd_toEndOf="parent" -->
+
 
     <TextView
         android:id="@+id/correctCounter"

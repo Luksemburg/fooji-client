@@ -155,7 +155,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.navigation_profile) {
-            Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+            //finish();
+            startActivity(intent);
             return true;
         } else if (id == R.id.navigation_statistic) {
             Toast.makeText(this, "Statistics clicked", Toast.LENGTH_SHORT).show();
