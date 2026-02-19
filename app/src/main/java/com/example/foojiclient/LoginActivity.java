@@ -9,6 +9,10 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -84,6 +88,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onGoogleLogin(View view){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestIdToken("212337228143-6djukr8r7iromq22cv5g74434bu381gl.apps.googleusercontent.com")
+                .build();
 
+        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 }
