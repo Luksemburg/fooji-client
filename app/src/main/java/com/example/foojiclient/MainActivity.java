@@ -67,14 +67,14 @@ public class MainActivity extends AppCompatActivity {
                     if(modeCurrent.equals("translate")){
                         questionTranslateMode(builder, textView, words);
                     }else if(modeCurrent.equals("hiragana")){
-                        textView.setText(builder.toString());
-                        questionHiraganaMode(words);
+                        //textView.setText(builder.toString());
+                        questionHiraganaMode(builder, textView,words);
                     }else{
                         if(random.nextBoolean()){
                             questionTranslateMode(builder, textView, words);
                         }else{
-                            textView.setText(builder.toString());
-                            questionHiraganaMode(words);
+                            //textView.setText(builder.toString());
+                            questionHiraganaMode(builder, textView,words);
                         }
                     }
                 }else{
@@ -109,7 +109,12 @@ public class MainActivity extends AppCompatActivity {
                 button5.setEnabled(true);
             }
 
-            private void questionHiraganaMode(List<Word> words) {
+            private void questionHiraganaMode(StringBuilder builder, TextView textView, List<Word> words) {
+
+                builder.append("\n").append("[").append(correct.getEnglish())
+                        .append("]");
+                textView.setText(builder.toString());
+
                 Button button1 = findViewById(R.id.button1);
                 button1.setText(words.get(0).getHiragana());
                 button1.setEnabled(true);

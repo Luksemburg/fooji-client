@@ -1,5 +1,6 @@
 package com.example.foojiclient;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -17,4 +18,8 @@ public interface WordApiService {
 
     @POST("login/register")
     Call<UserDTO> registerUser(@Body UserDTO user);
+
+    @POST("login/googleLogin")
+    Call<Object> googleLogin(@Body RequestBody body);
+    // Call<Object> googleLogin(@Body LoginRequest loginRequest);
 }
