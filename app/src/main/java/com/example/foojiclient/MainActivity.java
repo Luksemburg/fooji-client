@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     List<Word> words = response.body();
                     TextView textView = findViewById(R.id.textView);
                     StringBuilder builder = new StringBuilder();
-                    builder.append("Select correct translation:\n");
+                    builder.append("Select correct option:\n");
                     assert words != null;
 
                     intCorrect = random.nextInt(lim);

@@ -18,6 +18,18 @@ public class UserDTO {
 
     private String location;
 
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
+    }
+
+    private String googleId;
+
+    private String jwt;
+
     private Long inviteCode;
 
     public Long getInviteCode() {
@@ -80,7 +92,14 @@ public class UserDTO {
         this.username = username;
     }
 
-    @NonNull
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -90,6 +109,8 @@ public class UserDTO {
                 ", phone=" + phone +
                 ", gender='" + gender + '\'' +
                 ", location='" + location + '\'' +
+                ", googleId='" + googleId + '\'' +
+                ", jwt='" + jwt + '\'' +
                 ", inviteCode=" + inviteCode +
                 '}';
     }
