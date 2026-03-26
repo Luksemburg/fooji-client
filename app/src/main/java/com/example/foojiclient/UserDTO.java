@@ -28,8 +28,6 @@ public class UserDTO {
 
     private String googleId;
 
-    private String jwt;
-
     private Long inviteCode;
 
     public Long getInviteCode() {
@@ -92,14 +90,6 @@ public class UserDTO {
         this.username = username;
     }
 
-    public String getJwt() {
-        return jwt;
-    }
-
-    public void setJwt(String jwt) {
-        this.jwt = jwt;
-    }
-
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -110,7 +100,6 @@ public class UserDTO {
                 ", gender='" + gender + '\'' +
                 ", location='" + location + '\'' +
                 ", googleId='" + googleId + '\'' +
-                ", jwt='" + jwt + '\'' +
                 ", inviteCode=" + inviteCode +
                 '}';
     }

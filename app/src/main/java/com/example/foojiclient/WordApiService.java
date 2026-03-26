@@ -20,6 +20,5 @@ public interface WordApiService {
     Call<UserDTO> registerUser(@Body UserDTO user);
 
     @POST("login/googleLogin")
-    Call<Object> googleLogin(@Body RequestBody body);
-    // Call<Object> googleLogin(@Body LoginRequest loginRequest);
+    Call<UserDTO> googleLogin(@Body RequestBody body);
 }

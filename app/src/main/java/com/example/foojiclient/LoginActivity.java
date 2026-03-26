@@ -16,12 +16,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import java.io.IOException;
-
 
 import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,7 +66,8 @@ public class LoginActivity extends AppCompatActivity {
                     assert receivedUser != null;
                     editor.putString("username", receivedUser.getUsername());
                     editor.putString("email", receivedUser.getEmail());
-                    editor.putString("phone", String.valueOf(receivedUser.getPhone()));
+                    editor.putString("phone", receivedUser.getPhone() == null ?
+                            " === No Data === " : String.valueOf(receivedUser.getPhone()));
                     editor.putString("location", receivedUser.getLocation());
                     editor.putString("gender", receivedUser.getGender());
                     editor.apply();
@@ -139,18 +136,32 @@ public class LoginActivity extends AppCompatActivity {
                 .add("clientId", idToken)
                 .build();
 
-        /*Request request = new Request.Builder()
-                .url("...Server URL")
-                .post(body)
-                .build();
-
-        client.newCall(request).enqueue(new okhttp3.Callback() {*/
-
-        ApiClient.getWordApiService().googleLogin(body).enqueue(new Callback() {
+        ApiClient.getWordApiService().googleLogin(body).enqueue(new Callback<UserDTO>() {
             @Override
-            public void onResponse(Call call, Response response) {
+            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
                 // handle server response
                 Log.i("googleLogin", "===== googleLogin ===== " + response.body());
+
+                UserDTO receivedUser = response.body();
+                String token = response.headers().get("Authorization");
+                if(receivedUser != null) {
+                    Log.i("LOGIN", "onResponseGoogleLogin: " + receivedUser);
+                    Log.i("LOGIN", "TokenGoogleLogin: " + token);
+                }
+
+                SharedPreferences preferences = getSharedPreferences("FooJiPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("token", token);
+
+                assert receivedUser != null;
+                editor.putString("username", receivedUser.getUsername());
+                editor.putString("email", receivedUser.getEmail());
+                editor.putString("phone", receivedUser.getPhone() == null ?
+                        " === No Data === " : String.valueOf(receivedUser.getPhone()));
+                editor.putString("location", receivedUser.getLocation());
+                editor.putString("gender", receivedUser.getGender());
+                editor.apply();
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -159,16 +170,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call call, Throwable t) {
                 t.printStackTrace();
             }
-
-            /*@Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
-                // handle server response
-            }*/
 
         });
     }

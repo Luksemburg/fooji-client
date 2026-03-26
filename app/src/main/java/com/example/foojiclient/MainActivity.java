@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
             private void questionTranslateMode(StringBuilder builder, TextView textView, List<Word> words) {
                 if(!correct.getKanji().equals(correct.getHiragana())){
-                    builder.append("\n").append("[").append(correct.getHiragana())
+                    builder.append("\n").append("[").append(correct.getHiragana().trim())
                             .append("]");
                 }
                 textView.setText(builder.toString());
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
             private void questionHiraganaMode(StringBuilder builder, TextView textView, List<Word> words) {
 
-                builder.append("\n").append("[").append(correct.getEnglish())
+                builder.append("\n").append("[").append(correct.getEnglish().trim())
                         .append("]");
                 textView.setText(builder.toString());
 

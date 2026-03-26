@@ -3,6 +3,7 @@ package com.example.foojiclient;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,20 +21,45 @@ public class ProfileActivity extends AppCompatActivity {
         String email = prefs.getString("email", " === No Data === ");
         String phone = prefs.getString("phone", " === No Data === ");
         String location = prefs.getString("location", " === No Data === ");
-        String gender = prefs.getString("gender", " === No Data === ");
+        String gender = prefs.getString("gender", null);
 
         EditText usernameView = findViewById(R.id.edit_username);
         usernameView.setText(username);
         EditText emailView = findViewById(R.id.edit_email);
-        usernameView.setText(email);
+        emailView.setText(email);
         EditText phoneView = findViewById(R.id.edit_phone);
-        usernameView.setText(phone);
+        phoneView.setText(phone);
         EditText locationView = findViewById(R.id.edit_location);
-        usernameView.setText(location);
+        locationView.setText(location);
 
-        Spinner genderView = findViewById(R.id.edit_gender);
-        //TODO inflate and select an option
+        Spinner genderSpinner = findViewById(R.id.edit_gender);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.spinner_items,
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(adapter);
+
+        if(gender != null){
+            setSpinnerSelectionByText(genderSpinner, gender);
+        }else{
+            genderSpinner.setSelection(0);
+        }
 
 
+    }
+
+    private void setSpinnerSelectionByText(Spinner spinner, String text) {
+        ArrayAdapter<?> adapter = (ArrayAdapter<?>) spinner.getAdapter();
+
+        for (int i = 0; i < adapter.getCount(); i++) {
+            Object item = adapter.getItem(i);
+
+            if (item != null && item.toString().equals(text)) {
+                spinner.setSelection(i);
+                return;
+            }
+        }
     }
 }
