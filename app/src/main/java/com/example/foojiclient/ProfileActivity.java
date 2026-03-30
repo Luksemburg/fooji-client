@@ -3,6 +3,7 @@ package com.example.foojiclient;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -47,6 +48,14 @@ public class ProfileActivity extends AppCompatActivity {
             genderSpinner.setSelection(0);
         }
 
+
+    }
+
+    public void onSaveProfile(View view){
+
+    }
+
+    public void onCancelProfile(View view){
 
     }
 

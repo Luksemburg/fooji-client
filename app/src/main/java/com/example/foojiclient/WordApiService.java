@@ -21,4 +21,7 @@ public interface WordApiService {
 
     @POST("login/googleLogin")
     Call<UserDTO> googleLogin(@Body RequestBody body);
+
+    @POST("profile/save")
+    Call<UserDTO> updateProfile(@Body UserDTO user);
 }
