@@ -11,6 +11,31 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/text_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            android:text="@string/enter_email"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edit_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.9"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textEmailAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_email" />
+
+        <TextView
             android:id="@+id/text_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +47,7 @@
             android:text="@string/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_email" />
 
         <EditText
             android:id="@+id/edit_username"
@@ -37,30 +62,6 @@
             app:layout_constraintTop_toBottomOf="@id/text_username" />
 
         <TextView
-            android:id="@+id/text_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="textStart"
-            android:textSize="20sp"
-            android:text="@string/enter_email"
-            app:layout_constraintTop_toBottomOf="@+id/edit_username" />
-
-        <EditText
-            android:id="@+id/edit_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.9"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_email" />
-
-        <TextView
             android:id="@+id/text_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,7 +71,7 @@
             android:textAlignment="textStart"
             android:textSize="20sp"
             android:text="@string/phone_number"
-            app:layout_constraintTop_toBottomOf="@+id/edit_email" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_username" />
 
         <EditText
             android:id="@+id/edit_phone"
