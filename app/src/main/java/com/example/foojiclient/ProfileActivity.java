@@ -80,10 +80,17 @@ public class ProfileActivity extends AppCompatActivity {
             newUser.setPassword(String.valueOf(newPassword.getText()));
             newUser.setPhone(Long.parseLong(String.valueOf(phone.getText())));
             //TODO here an error, try to register empty
-            newUser.setGender(String.valueOf(gender.getSelectedItem()));
-            newUser.setLocation(String.valueOf(location.getText()));
-            newUser.setInviteCode(Long.parseLong(String.valueOf(inviteCode.getText())));
+            //newUser.setGender(String.valueOf(gender.getSelectedItem()));
 
+            newUser.setLocation(String.valueOf(location.getText()));
+            if(inviteCode != null) {
+                newUser.setInviteCode(Long.parseLong(String.valueOf(inviteCode.getText())));
+            }
+
+            /*SharedPreferences preferences = getSharedPreferences("FooJiPrefs", MODE_PRIVATE);
+            String token = preferences.getString("token","not-a-token");*/
+
+            //ApiClient.getWordApiService().updateProfile("Bearer " + token, newUser).enqueue(new Callback<UserDTO>() {
             ApiClient.getWordApiService().updateProfile(newUser).enqueue(new Callback<UserDTO>() {
                 @Override
                 public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
@@ -91,7 +98,7 @@ public class ProfileActivity extends AppCompatActivity {
                         // handle success
                         UserDTO createdUser = response.body();
                         String token = response.headers().get("Authorization");
-                        Log.i("REG", "onResponse: " + response);
+                        Log.i("PROFILE", "onResponse: " + response);
 
                         SharedPreferences preferences = getSharedPreferences("FooJiPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
