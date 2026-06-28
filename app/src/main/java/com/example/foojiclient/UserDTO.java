@@ -11,6 +11,7 @@ public class UserDTO {
     private String email;
 
     private String password;
+    private String oldPassword;
 
     private Long phone;
 
@@ -80,12 +81,21 @@ public class UserDTO {
         this.username = username;
     }
 
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", oldPassword='" + oldPassword + '\'' +
                 ", phone=" + phone +
                 ", gender='" + gender + '\'' +
                 ", location='" + location + '\'' +

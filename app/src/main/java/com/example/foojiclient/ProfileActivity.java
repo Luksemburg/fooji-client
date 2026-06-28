@@ -78,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
             newUser.setUsername(String.valueOf(username.getText()));
             //newUser.setEmail(String.valueOf(email.getText()));
             newUser.setPassword(String.valueOf(newPassword.getText()));
+            newUser.setOldPassword(String.valueOf(oldPassword.getText()));
             newUser.setPhone(Long.parseLong(String.valueOf(phone.getText())));
             //TODO here an error, try to register empty
             //newUser.setGender(String.valueOf(gender.getSelectedItem()));
